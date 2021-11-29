@@ -10,3 +10,4 @@ class Item(models.Model):
 
     def get_absolute_url(self, *args, **kwargs):
         return reverse('image-view', kwargs={'pk': self.pk})
+
