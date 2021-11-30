@@ -1,18 +1,22 @@
 from django.contrib import admin
+from django.db import models
 from django.http import HttpResponseRedirect
 
 # from .forms import CustomFileInput
-from .forms import CustomFileInput, ItemForm
+from .forms import ItemForm, AdminImageWidget
 from .models import Item
 
 
 class ItemAdmin(admin.ModelAdmin):
     form = ItemForm
-
-    def formfield_for_dbfield(self, db_field, request, **kwargs):
-        if db_field.name == 'upload':
-            kwargs['widget'] = CustomFileInput
-        return super().formfield_for_dbfield(db_field, request, **kwargs)
+    list_display = ['id', 'upload', 'thumbnail']
+    list_display_links = ['id', 'upload']
+    # readonly_fields = ['file_id', ]
+    formfield_overrides = {models.FileField: {'widget': AdminImageWidget}}
+    # def formfield_for_dbfield(self, db_field, request, **kwargs):
+    #     if db_field.name == 'upload':
+    #         kwargs['widget'] = CustomFileInput
+    #     return super().formfield_for_dbfield(db_field, request, **kwargs)
 
     # def changeform_view(self, request, object_id=None, form_url='', extra_context=None):
     #     print(request, request.__dict__)

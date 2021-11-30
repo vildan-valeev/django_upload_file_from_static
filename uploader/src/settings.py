@@ -117,3 +117,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+VALID_PHOTO_EXTENSIONS = ['.jpg', '.png', '.jpeg', ]
+VALID_VIDEO_EXTENSIONS = ['.mp4', '.vob', '.flv', '.mkv', '.mov', '.avi', ]
