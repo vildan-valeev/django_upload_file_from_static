@@ -25,5 +25,16 @@ class ItemAdmin(admin.ModelAdmin):
     #     print(obj)
     #     return super().response_change(request, obj)
 
+    fieldsets = (
+        # (None, {
+        #     'fields': (
+        #         'tg_id', 'first_name', 'last_name', 'username', 'phone', 'tg_user_type', 'balance', 'created',
+        #         'updated', 'refer')
+        # }),
+        ('Загрузить изображение', {
+            'fields': ('upload', 'from_storage', 'url'),
+        }),
+
+    )
 
 admin.site.register(Item, ItemAdmin)

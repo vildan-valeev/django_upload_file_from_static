@@ -1,9 +1,17 @@
+import os
+
 from django.db import models
+from django.db.models import Field
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
+from src import settings
 from src.settings import VALID_PHOTO_EXTENSIONS, VALID_VIDEO_EXTENSIONS
 from upload_app.validators import validate_file_extension, get_extension
+
+
+def images_path():
+    return os.path.join(settings.MEDIA_ROOT, 'uploads')
 
 
 class Item(models.Model):

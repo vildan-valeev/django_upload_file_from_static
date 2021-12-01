@@ -17,20 +17,31 @@ def images_path():
 
 
 # print(images_path())
+class CheckFieldsMixin:
+    def check_fullness(self, clean_dict: dict) -> bool:
+        """
+        check dict. In dict will be only one NoneType, non-False
+        """
+        # есть ли хоть один None, все ли значения в списке None ()
+        if len({k: v for k, v in clean_dict.items() if v}) == 1:
+            return True
+        return False
 
-
-class ItemForm(forms.ModelForm):
-    # storage = forms.FilePathField(path=images_path)
+class ItemForm(forms.ModelForm, CheckFieldsMixin):
     from_storage = forms.FilePathField(
-        path='/home/vildan/PycharmProjects/django_upload_file_from_static/uploader/media/uploads',)
+        path='/home/vildan/PycharmProjects/django_upload_file_from_static/uploader/media/uploads', required=None)
+    url = forms.URLField(required=None, help_text='https://example.com/image.png')
 
     class Meta:
         model = Item
-        fields = ['upload', 'from_storage']
+        fields = ['upload', 'from_storage', 'url']
 
     def clean(self):
         cleaned_data = super().clean()
         print(cleaned_data)
+        if not self.check_fullness(cleaned_data):
+            raise forms.ValidationError('Необходимо что-то одно - загрузите файл, '
+                                        'выберите существующий, или вставьте ссылку на изображение')
         return cleaned_data
 
 
