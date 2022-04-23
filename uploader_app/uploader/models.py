@@ -1,7 +1,6 @@
 import os
 
 from django.db import models
-from django.db.models import Field
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
